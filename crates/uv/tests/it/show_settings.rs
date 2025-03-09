@@ -51,7 +51,7 @@ fn resolve_uv_toml() -> anyhow::Result<()> {
     // Resolution should use the lowest direct version, and generate hashes.
     uv_snapshot!(context.filters(), add_shared_args(context.pip_compile(), context.temp_dir.path())
         .arg("--show-settings")
-        .arg("requirements.in"), @r#"
+        .arg("requirements.in"), @r###"
     success: true
     exit_code: 0
     ----- stdout -----
@@ -171,6 +171,7 @@ fn resolve_uv_toml() -> anyhow::Result<()> {
             prefix: None,
             index_strategy: FirstIndex,
             keyring_provider: Disabled,
+            torch_backend: None,
             no_build_isolation: false,
             no_build_isolation_package: [],
             build_options: BuildOptions {
@@ -219,14 +220,14 @@ fn resolve_uv_toml() -> anyhow::Result<()> {
     }
 
     ----- stderr -----
-    "#
+    "###
     );
 
     // Resolution should use the highest version, and generate hashes.
     uv_snapshot!(context.filters(), add_shared_args(context.pip_compile(), context.temp_dir.path())
         .arg("--show-settings")
         .arg("requirements.in")
-        .arg("--resolution=highest"), @r#"
+        .arg("--resolution=highest"), @r###"
     success: true
     exit_code: 0
     ----- stdout -----
@@ -346,6 +347,7 @@ fn resolve_uv_toml() -> anyhow::Result<()> {
             prefix: None,
             index_strategy: FirstIndex,
             keyring_provider: Disabled,
+            torch_backend: None,
             no_build_isolation: false,
             no_build_isolation_package: [],
             build_options: BuildOptions {
@@ -394,7 +396,7 @@ fn resolve_uv_toml() -> anyhow::Result<()> {
     }
 
     ----- stderr -----
-    "#
+    "###
     );
 
     // Resolution should use the highest version, and omit hashes.
@@ -402,7 +404,7 @@ fn resolve_uv_toml() -> anyhow::Result<()> {
         .arg("--show-settings")
         .arg("requirements.in")
         .arg("--resolution=highest")
-        .arg("--no-generate-hashes"), @r#"
+        .arg("--no-generate-hashes"), @r###"
     success: true
     exit_code: 0
     ----- stdout -----
@@ -522,6 +524,7 @@ fn resolve_uv_toml() -> anyhow::Result<()> {
             prefix: None,
             index_strategy: FirstIndex,
             keyring_provider: Disabled,
+            torch_backend: None,
             no_build_isolation: false,
             no_build_isolation_package: [],
             build_options: BuildOptions {
@@ -570,7 +573,7 @@ fn resolve_uv_toml() -> anyhow::Result<()> {
     }
 
     ----- stderr -----
-    "#
+    "###
     );
 
     Ok(())
@@ -610,7 +613,7 @@ fn resolve_pyproject_toml() -> anyhow::Result<()> {
     // Resolution should use the lowest direct version, and generate hashes.
     uv_snapshot!(context.filters(), add_shared_args(context.pip_compile(), context.temp_dir.path())
         .arg("--show-settings")
-        .arg("requirements.in"), @r#"
+        .arg("requirements.in"), @r###"
     success: true
     exit_code: 0
     ----- stdout -----
@@ -730,6 +733,7 @@ fn resolve_pyproject_toml() -> anyhow::Result<()> {
             prefix: None,
             index_strategy: FirstIndex,
             keyring_provider: Disabled,
+            torch_backend: None,
             no_build_isolation: false,
             no_build_isolation_package: [],
             build_options: BuildOptions {
@@ -778,7 +782,7 @@ fn resolve_pyproject_toml() -> anyhow::Result<()> {
     }
 
     ----- stderr -----
-    "#
+    "###
     );
 
     // Remove the `uv.toml` file.
@@ -787,7 +791,7 @@ fn resolve_pyproject_toml() -> anyhow::Result<()> {
     // Resolution should use the highest version, and omit hashes.
     uv_snapshot!(context.filters(), add_shared_args(context.pip_compile(), context.temp_dir.path())
         .arg("--show-settings")
-        .arg("requirements.in"), @r#"
+        .arg("requirements.in"), @r###"
     success: true
     exit_code: 0
     ----- stdout -----
@@ -876,6 +880,7 @@ fn resolve_pyproject_toml() -> anyhow::Result<()> {
             prefix: None,
             index_strategy: FirstIndex,
             keyring_provider: Disabled,
+            torch_backend: None,
             no_build_isolation: false,
             no_build_isolation_package: [],
             build_options: BuildOptions {
@@ -924,7 +929,7 @@ fn resolve_pyproject_toml() -> anyhow::Result<()> {
     }
 
     ----- stderr -----
-    "#
+    "###
     );
 
     // Add configuration to the `pyproject.toml` file.
@@ -942,7 +947,7 @@ fn resolve_pyproject_toml() -> anyhow::Result<()> {
     // Resolution should use the lowest direct version, and generate hashes.
     uv_snapshot!(context.filters(), add_shared_args(context.pip_compile(), context.temp_dir.path())
         .arg("--show-settings")
-        .arg("requirements.in"), @r#"
+        .arg("requirements.in"), @r###"
     success: true
     exit_code: 0
     ----- stdout -----
@@ -1062,6 +1067,7 @@ fn resolve_pyproject_toml() -> anyhow::Result<()> {
             prefix: None,
             index_strategy: FirstIndex,
             keyring_provider: Disabled,
+            torch_backend: None,
             no_build_isolation: false,
             no_build_isolation_package: [],
             build_options: BuildOptions {
@@ -1110,7 +1116,7 @@ fn resolve_pyproject_toml() -> anyhow::Result<()> {
     }
 
     ----- stderr -----
-    "#
+    "###
     );
 
     Ok(())
@@ -1142,7 +1148,7 @@ fn resolve_index_url() -> anyhow::Result<()> {
 
     uv_snapshot!(context.filters(), add_shared_args(context.pip_compile(), context.temp_dir.path())
         .arg("--show-settings")
-        .arg("requirements.in"), @r#"
+        .arg("requirements.in"), @r###"
     success: true
     exit_code: 0
     ----- stdout -----
@@ -1292,6 +1298,7 @@ fn resolve_index_url() -> anyhow::Result<()> {
             prefix: None,
             index_strategy: FirstIndex,
             keyring_provider: Disabled,
+            torch_backend: None,
             no_build_isolation: false,
             no_build_isolation_package: [],
             build_options: BuildOptions {
@@ -1340,7 +1347,7 @@ fn resolve_index_url() -> anyhow::Result<()> {
     }
 
     ----- stderr -----
-    "#
+    "###
     );
 
     // Providing an additional index URL on the command-line should be merged with the
@@ -1349,7 +1356,7 @@ fn resolve_index_url() -> anyhow::Result<()> {
         .arg("--show-settings")
         .arg("requirements.in")
         .arg("--extra-index-url")
-        .arg("https://test.pypi.org/simple"), @r#"
+        .arg("https://test.pypi.org/simple"), @r###"
     success: true
     exit_code: 0
     ----- stdout -----
@@ -1531,6 +1538,7 @@ fn resolve_index_url() -> anyhow::Result<()> {
             prefix: None,
             index_strategy: FirstIndex,
             keyring_provider: Disabled,
+            torch_backend: None,
             no_build_isolation: false,
             no_build_isolation_package: [],
             build_options: BuildOptions {
@@ -1579,7 +1587,7 @@ fn resolve_index_url() -> anyhow::Result<()> {
     }
 
     ----- stderr -----
-    "#
+    "###
     );
 
     Ok(())
@@ -1611,7 +1619,7 @@ fn resolve_find_links() -> anyhow::Result<()> {
 
     uv_snapshot!(context.filters(), add_shared_args(context.pip_compile(), context.temp_dir.path())
         .arg("--show-settings")
-        .arg("requirements.in"), @r#"
+        .arg("requirements.in"), @r###"
     success: true
     exit_code: 0
     ----- stdout -----
@@ -1731,6 +1739,7 @@ fn resolve_find_links() -> anyhow::Result<()> {
             prefix: None,
             index_strategy: FirstIndex,
             keyring_provider: Disabled,
+            torch_backend: None,
             no_build_isolation: false,
             no_build_isolation_package: [],
             build_options: BuildOptions {
@@ -1779,7 +1788,7 @@ fn resolve_find_links() -> anyhow::Result<()> {
     }
 
     ----- stderr -----
-    "#
+    "###
     );
 
     Ok(())
@@ -1810,7 +1819,7 @@ fn resolve_top_level() -> anyhow::Result<()> {
 
     uv_snapshot!(context.filters(), add_shared_args(context.pip_compile(), context.temp_dir.path())
         .arg("--show-settings")
-        .arg("requirements.in"), @r#"
+        .arg("requirements.in"), @r###"
     success: true
     exit_code: 0
     ----- stdout -----
@@ -1899,6 +1908,7 @@ fn resolve_top_level() -> anyhow::Result<()> {
             prefix: None,
             index_strategy: FirstIndex,
             keyring_provider: Disabled,
+            torch_backend: None,
             no_build_isolation: false,
             no_build_isolation_package: [],
             build_options: BuildOptions {
@@ -1947,7 +1957,7 @@ fn resolve_top_level() -> anyhow::Result<()> {
     }
 
     ----- stderr -----
-    "#
+    "###
     );
 
     // Write out to both the top-level (`tool.uv`) and the pip section (`tool.uv.pip`). The
@@ -1971,7 +1981,7 @@ fn resolve_top_level() -> anyhow::Result<()> {
 
     uv_snapshot!(context.filters(), add_shared_args(context.pip_compile(), context.temp_dir.path())
         .arg("--show-settings")
-        .arg("requirements.in"), @r#"
+        .arg("requirements.in"), @r###"
     success: true
     exit_code: 0
     ----- stdout -----
@@ -2121,6 +2131,7 @@ fn resolve_top_level() -> anyhow::Result<()> {
             prefix: None,
             index_strategy: FirstIndex,
             keyring_provider: Disabled,
+            torch_backend: None,
             no_build_isolation: false,
             no_build_isolation_package: [],
             build_options: BuildOptions {
@@ -2169,14 +2180,14 @@ fn resolve_top_level() -> anyhow::Result<()> {
     }
 
     ----- stderr -----
-    "#
+    "###
     );
 
     // But the command-line should take precedence over both.
     uv_snapshot!(context.filters(), add_shared_args(context.pip_compile(), context.temp_dir.path())
         .arg("--show-settings")
         .arg("requirements.in")
-        .arg("--resolution=lowest-direct"), @r#"
+        .arg("--resolution=lowest-direct"), @r###"
     success: true
     exit_code: 0
     ----- stdout -----
@@ -2326,6 +2337,7 @@ fn resolve_top_level() -> anyhow::Result<()> {
             prefix: None,
             index_strategy: FirstIndex,
             keyring_provider: Disabled,
+            torch_backend: None,
             no_build_isolation: false,
             no_build_isolation_package: [],
             build_options: BuildOptions {
@@ -2374,7 +2386,7 @@ fn resolve_top_level() -> anyhow::Result<()> {
     }
 
     ----- stderr -----
-    "#
+    "###
     );
 
     Ok(())
@@ -2405,7 +2417,7 @@ fn resolve_user_configuration() -> anyhow::Result<()> {
     uv_snapshot!(context.filters(), add_shared_args(context.pip_compile(), context.temp_dir.path())
         .arg("--show-settings")
         .arg("requirements.in")
-        .env(EnvVars::XDG_CONFIG_HOME, xdg.path()), @r#"
+        .env(EnvVars::XDG_CONFIG_HOME, xdg.path()), @r###"
     success: true
     exit_code: 0
     ----- stdout -----
@@ -2494,6 +2506,7 @@ fn resolve_user_configuration() -> anyhow::Result<()> {
             prefix: None,
             index_strategy: FirstIndex,
             keyring_provider: Disabled,
+            torch_backend: None,
             no_build_isolation: false,
             no_build_isolation_package: [],
             build_options: BuildOptions {
@@ -2542,7 +2555,7 @@ fn resolve_user_configuration() -> anyhow::Result<()> {
     }
 
     ----- stderr -----
-    "#
+    "###
     );
 
     // Add a local configuration to generate hashes.
@@ -2556,7 +2569,7 @@ fn resolve_user_configuration() -> anyhow::Result<()> {
     uv_snapshot!(context.filters(), add_shared_args(context.pip_compile(), context.temp_dir.path())
         .arg("--show-settings")
         .arg("requirements.in")
-        .env(EnvVars::XDG_CONFIG_HOME, xdg.path()), @r#"
+        .env(EnvVars::XDG_CONFIG_HOME, xdg.path()), @r###"
     success: true
     exit_code: 0
     ----- stdout -----
@@ -2645,6 +2658,7 @@ fn resolve_user_configuration() -> anyhow::Result<()> {
             prefix: None,
             index_strategy: FirstIndex,
             keyring_provider: Disabled,
+            torch_backend: None,
             no_build_isolation: false,
             no_build_isolation_package: [],
             build_options: BuildOptions {
@@ -2693,7 +2707,7 @@ fn resolve_user_configuration() -> anyhow::Result<()> {
     }
 
     ----- stderr -----
-    "#
+    "###
     );
 
     // Add a local configuration to override the user configuration.
@@ -2707,7 +2721,7 @@ fn resolve_user_configuration() -> anyhow::Result<()> {
     uv_snapshot!(context.filters(), add_shared_args(context.pip_compile(), context.temp_dir.path())
         .arg("--show-settings")
         .arg("requirements.in")
-        .env(EnvVars::XDG_CONFIG_HOME, xdg.path()), @r#"
+        .env(EnvVars::XDG_CONFIG_HOME, xdg.path()), @r###"
     success: true
     exit_code: 0
     ----- stdout -----
@@ -2796,6 +2810,7 @@ fn resolve_user_configuration() -> anyhow::Result<()> {
             prefix: None,
             index_strategy: FirstIndex,
             keyring_provider: Disabled,
+            torch_backend: None,
             no_build_isolation: false,
             no_build_isolation_package: [],
             build_options: BuildOptions {
@@ -2844,7 +2859,7 @@ fn resolve_user_configuration() -> anyhow::Result<()> {
     }
 
     ----- stderr -----
-    "#
+    "###
     );
 
     // However, the user-level `tool.uv.pip` settings override the project-level `tool.uv` settings.
@@ -2860,7 +2875,7 @@ fn resolve_user_configuration() -> anyhow::Result<()> {
     uv_snapshot!(context.filters(), add_shared_args(context.pip_compile(), context.temp_dir.path())
         .arg("--show-settings")
         .arg("requirements.in")
-        .env(EnvVars::XDG_CONFIG_HOME, xdg.path()), @r#"
+        .env(EnvVars::XDG_CONFIG_HOME, xdg.path()), @r###"
     success: true
     exit_code: 0
     ----- stdout -----
@@ -2949,6 +2964,7 @@ fn resolve_user_configuration() -> anyhow::Result<()> {
             prefix: None,
             index_strategy: FirstIndex,
             keyring_provider: Disabled,
+            torch_backend: None,
             no_build_isolation: false,
             no_build_isolation_package: [],
             build_options: BuildOptions {
@@ -2997,7 +3013,7 @@ fn resolve_user_configuration() -> anyhow::Result<()> {
     }
 
     ----- stderr -----
-    "#
+    "###
     );
 
     Ok(())
@@ -3193,7 +3209,7 @@ fn resolve_poetry_toml() -> anyhow::Result<()> {
     // Resolution should use the lowest direct version, and generate hashes.
     uv_snapshot!(context.filters(), add_shared_args(context.pip_compile(), context.temp_dir.path())
         .arg("--show-settings")
-        .arg("requirements.in"), @r#"
+        .arg("requirements.in"), @r###"
     success: true
     exit_code: 0
     ----- stdout -----
@@ -3282,6 +3298,7 @@ fn resolve_poetry_toml() -> anyhow::Result<()> {
             prefix: None,
             index_strategy: FirstIndex,
             keyring_provider: Disabled,
+            torch_backend: None,
             no_build_isolation: false,
             no_build_isolation_package: [],
             build_options: BuildOptions {
@@ -3330,7 +3347,7 @@ fn resolve_poetry_toml() -> anyhow::Result<()> {
     }
 
     ----- stderr -----
-    "#
+    "###
     );
 
     Ok(())
@@ -3372,7 +3389,7 @@ fn resolve_both() -> anyhow::Result<()> {
     // Resolution should succeed, but warn that the `pip` section in `pyproject.toml` is ignored.
     uv_snapshot!(context.filters(), add_shared_args(context.pip_compile(), context.temp_dir.path())
         .arg("--show-settings")
-        .arg("requirements.in"), @r#"
+        .arg("requirements.in"), @r###"
     success: true
     exit_code: 0
     ----- stdout -----
@@ -3492,6 +3509,7 @@ fn resolve_both() -> anyhow::Result<()> {
             prefix: None,
             index_strategy: FirstIndex,
             keyring_provider: Disabled,
+            torch_backend: None,
             no_build_isolation: false,
             no_build_isolation_package: [],
             build_options: BuildOptions {
@@ -3541,7 +3559,7 @@ fn resolve_both() -> anyhow::Result<()> {
 
     ----- stderr -----
     warning: Found both a `uv.toml` file and a `[tool.uv]` section in an adjacent `pyproject.toml`. The `[tool.uv]` section will be ignored in favor of the `uv.toml` file.
-    "#
+    "###
     );
 
     Ok(())
@@ -3670,7 +3688,7 @@ fn resolve_config_file() -> anyhow::Result<()> {
         .arg("--show-settings")
         .arg("--config-file")
         .arg(config.path())
-        .arg("requirements.in"), @r#"
+        .arg("requirements.in"), @r###"
     success: true
     exit_code: 0
     ----- stdout -----
@@ -3790,6 +3808,7 @@ fn resolve_config_file() -> anyhow::Result<()> {
             prefix: None,
             index_strategy: FirstIndex,
             keyring_provider: Disabled,
+            torch_backend: None,
             no_build_isolation: false,
             no_build_isolation_package: [],
             build_options: BuildOptions {
@@ -3838,7 +3857,7 @@ fn resolve_config_file() -> anyhow::Result<()> {
     }
 
     ----- stderr -----
-    "#
+    "###
     );
 
     // Write in `pyproject.toml` schema.
@@ -3946,7 +3965,7 @@ fn resolve_skip_empty() -> anyhow::Result<()> {
     uv_snapshot!(context.filters(), add_shared_args(context.pip_compile(), context.temp_dir.path())
         .arg("--show-settings")
         .arg("requirements.in")
-        .current_dir(&child), @r#"
+        .current_dir(&child), @r###"
     success: true
     exit_code: 0
     ----- stdout -----
@@ -4035,6 +4054,7 @@ fn resolve_skip_empty() -> anyhow::Result<()> {
             prefix: None,
             index_strategy: FirstIndex,
             keyring_provider: Disabled,
+            torch_backend: None,
             no_build_isolation: false,
             no_build_isolation_package: [],
             build_options: BuildOptions {
@@ -4083,7 +4103,7 @@ fn resolve_skip_empty() -> anyhow::Result<()> {
     }
 
     ----- stderr -----
-    "#
+    "###
     );
 
     // Adding a `tool.uv` section should cause us to ignore the `uv.toml`.
@@ -4100,7 +4120,7 @@ fn resolve_skip_empty() -> anyhow::Result<()> {
     uv_snapshot!(context.filters(), add_shared_args(context.pip_compile(), context.temp_dir.path())
         .arg("--show-settings")
         .arg("requirements.in")
-        .current_dir(&child), @r#"
+        .current_dir(&child), @r###"
     success: true
     exit_code: 0
     ----- stdout -----
@@ -4189,6 +4209,7 @@ fn resolve_skip_empty() -> anyhow::Result<()> {
             prefix: None,
             index_strategy: FirstIndex,
             keyring_provider: Disabled,
+            torch_backend: None,
             no_build_isolation: false,
             no_build_isolation_package: [],
             build_options: BuildOptions {
@@ -4237,7 +4258,7 @@ fn resolve_skip_empty() -> anyhow::Result<()> {
     }
 
     ----- stderr -----
-    "#
+    "###
     );
 
     Ok(())
@@ -4262,7 +4283,7 @@ fn allow_insecure_host() -> anyhow::Result<()> {
 
     uv_snapshot!(context.filters(), add_shared_args(context.pip_compile(), context.temp_dir.path())
         .arg("--show-settings")
-        .arg("requirements.in"), @r#"
+        .arg("requirements.in"), @r###"
     success: true
     exit_code: 0
     ----- stdout -----
@@ -4362,6 +4383,7 @@ fn allow_insecure_host() -> anyhow::Result<()> {
             prefix: None,
             index_strategy: FirstIndex,
             keyring_provider: Disabled,
+            torch_backend: None,
             no_build_isolation: false,
             no_build_isolation_package: [],
             build_options: BuildOptions {
@@ -4410,7 +4432,7 @@ fn allow_insecure_host() -> anyhow::Result<()> {
     }
 
     ----- stderr -----
-    "#
+    "###
     );
 
     Ok(())
@@ -4438,7 +4460,7 @@ fn index_priority() -> anyhow::Result<()> {
         .arg("requirements.in")
         .arg("--show-settings")
         .arg("--index-url")
-        .arg("https://cli.pypi.org/simple"), @r#"
+        .arg("https://cli.pypi.org/simple"), @r###"
     success: true
     exit_code: 0
     ----- stdout -----
@@ -4590,6 +4612,7 @@ fn index_priority() -> anyhow::Result<()> {
             prefix: None,
             index_strategy: FirstIndex,
             keyring_provider: Disabled,
+            torch_backend: None,
             no_build_isolation: false,
             no_build_isolation_package: [],
             build_options: BuildOptions {
@@ -4638,14 +4661,14 @@ fn index_priority() -> anyhow::Result<()> {
     }
 
     ----- stderr -----
-    "#
+    "###
     );
 
     uv_snapshot!(context.filters(), add_shared_args(context.pip_compile(), context.temp_dir.path())
         .arg("requirements.in")
         .arg("--show-settings")
         .arg("--default-index")
-        .arg("https://cli.pypi.org/simple"), @r#"
+        .arg("https://cli.pypi.org/simple"), @r###"
     success: true
     exit_code: 0
     ----- stdout -----
@@ -4797,6 +4820,7 @@ fn index_priority() -> anyhow::Result<()> {
             prefix: None,
             index_strategy: FirstIndex,
             keyring_provider: Disabled,
+            torch_backend: None,
             no_build_isolation: false,
             no_build_isolation_package: [],
             build_options: BuildOptions {
@@ -4845,7 +4869,7 @@ fn index_priority() -> anyhow::Result<()> {
     }
 
     ----- stderr -----
-    "#
+    "###
     );
 
     let config = context.temp_dir.child("uv.toml");
@@ -4858,7 +4882,7 @@ fn index_priority() -> anyhow::Result<()> {
         .arg("requirements.in")
         .arg("--show-settings")
         .arg("--default-index")
-        .arg("https://cli.pypi.org/simple"), @r#"
+        .arg("https://cli.pypi.org/simple"), @r###"
     success: true
     exit_code: 0
     ----- stdout -----
@@ -5010,6 +5034,7 @@ fn index_priority() -> anyhow::Result<()> {
             prefix: None,
             index_strategy: FirstIndex,
             keyring_provider: Disabled,
+            torch_backend: None,
             no_build_isolation: false,
             no_build_isolation_package: [],
             build_options: BuildOptions {
@@ -5058,7 +5083,7 @@ fn index_priority() -> anyhow::Result<()> {
     }
 
     ----- stderr -----
-    "#
+    "###
     );
 
     // Prefer the `--index` from the CLI, but treat the index from the file as the default.
@@ -5066,7 +5091,7 @@ fn index_priority() -> anyhow::Result<()> {
         .arg("requirements.in")
         .arg("--show-settings")
         .arg("--index")
-        .arg("https://cli.pypi.org/simple"), @r#"
+        .arg("https://cli.pypi.org/simple"), @r###"
     success: true
     exit_code: 0
     ----- stdout -----
@@ -5218,6 +5243,7 @@ fn index_priority() -> anyhow::Result<()> {
             prefix: None,
             index_strategy: FirstIndex,
             keyring_provider: Disabled,
+            torch_backend: None,
             no_build_isolation: false,
             no_build_isolation_package: [],
             build_options: BuildOptions {
@@ -5266,7 +5292,7 @@ fn index_priority() -> anyhow::Result<()> {
     }
 
     ----- stderr -----
-    "#
+    "###
     );
 
     let config = context.temp_dir.child("uv.toml");
@@ -5281,7 +5307,7 @@ fn index_priority() -> anyhow::Result<()> {
         .arg("requirements.in")
         .arg("--show-settings")
         .arg("--index-url")
-        .arg("https://cli.pypi.org/simple"), @r#"
+        .arg("https://cli.pypi.org/simple"), @r###"
     success: true
     exit_code: 0
     ----- stdout -----
@@ -5433,6 +5459,7 @@ fn index_priority() -> anyhow::Result<()> {
             prefix: None,
             index_strategy: FirstIndex,
             keyring_provider: Disabled,
+            torch_backend: None,
             no_build_isolation: false,
             no_build_isolation_package: [],
             build_options: BuildOptions {
@@ -5481,7 +5508,7 @@ fn index_priority() -> anyhow::Result<()> {
     }
 
     ----- stderr -----
-    "#
+    "###
     );
 
     // Prefer the `--extra-index-url` from the CLI, but not as the default.
@@ -5489,7 +5516,7 @@ fn index_priority() -> anyhow::Result<()> {
         .arg("requirements.in")
         .arg("--show-settings")
         .arg("--extra-index-url")
-        .arg("https://cli.pypi.org/simple"), @r#"
+        .arg("https://cli.pypi.org/simple"), @r###"
     success: true
     exit_code: 0
     ----- stdout -----
@@ -5641,6 +5668,7 @@ fn index_priority() -> anyhow::Result<()> {
             prefix: None,
             index_strategy: FirstIndex,
             keyring_provider: Disabled,
+            torch_backend: None,
             no_build_isolation: false,
             no_build_isolation_package: [],
             build_options: BuildOptions {
@@ -5689,7 +5717,7 @@ fn index_priority() -> anyhow::Result<()> {
     }
 
     ----- stderr -----
-    "#
+    "###
     );
 
     Ok(())
@@ -5710,7 +5738,7 @@ fn verify_hashes() -> anyhow::Result<()> {
     uv_snapshot!(context.filters(), add_shared_args(context.pip_install(), context.temp_dir.path())
         .arg("-r")
         .arg("requirements.in")
-        .arg("--show-settings"), @r#"
+        .arg("--show-settings"), @r###"
     success: true
     exit_code: 0
     ----- stdout -----
@@ -5800,6 +5828,7 @@ fn verify_hashes() -> anyhow::Result<()> {
             prefix: None,
             index_strategy: FirstIndex,
             keyring_provider: Disabled,
+            torch_backend: None,
             no_build_isolation: false,
             no_build_isolation_package: [],
             build_options: BuildOptions {
@@ -5848,14 +5877,14 @@ fn verify_hashes() -> anyhow::Result<()> {
     }
 
     ----- stderr -----
-    "#
+    "###
     );
 
     uv_snapshot!(context.filters(), add_shared_args(context.pip_install(), context.temp_dir.path())
         .arg("-r")
         .arg("requirements.in")
         .arg("--no-verify-hashes")
-        .arg("--show-settings"), @r#"
+        .arg("--show-settings"), @r###"
     success: true
     exit_code: 0
     ----- stdout -----
@@ -5945,6 +5974,7 @@ fn verify_hashes() -> anyhow::Result<()> {
             prefix: None,
             index_strategy: FirstIndex,
             keyring_provider: Disabled,
+            torch_backend: None,
             no_build_isolation: false,
             no_build_isolation_package: [],
             build_options: BuildOptions {
@@ -5991,14 +6021,14 @@ fn verify_hashes() -> anyhow::Result<()> {
     }
 
     ----- stderr -----
-    "#
+    "###
     );
 
     uv_snapshot!(context.filters(), add_shared_args(context.pip_install(), context.temp_dir.path())
         .arg("-r")
         .arg("requirements.in")
         .arg("--require-hashes")
-        .arg("--show-settings"), @r#"
+        .arg("--show-settings"), @r###"
     success: true
     exit_code: 0
     ----- stdout -----
@@ -6088,6 +6118,7 @@ fn verify_hashes() -> anyhow::Result<()> {
             prefix: None,
             index_strategy: FirstIndex,
             keyring_provider: Disabled,
+            torch_backend: None,
             no_build_isolation: false,
             no_build_isolation_package: [],
             build_options: BuildOptions {
@@ -6136,14 +6167,14 @@ fn verify_hashes() -> anyhow::Result<()> {
     }
 
     ----- stderr -----
-    "#
+    "###
     );
 
     uv_snapshot!(context.filters(), add_shared_args(context.pip_install(), context.temp_dir.path())
         .arg("-r")
         .arg("requirements.in")
         .arg("--no-require-hashes")
-        .arg("--show-settings"), @r#"
+        .arg("--show-settings"), @r###"
     success: true
     exit_code: 0
     ----- stdout -----
@@ -6233,6 +6264,7 @@ fn verify_hashes() -> anyhow::Result<()> {
             prefix: None,
             index_strategy: FirstIndex,
             keyring_provider: Disabled,
+            torch_backend: None,
             no_build_isolation: false,
             no_build_isolation_package: [],
             build_options: BuildOptions {
@@ -6279,14 +6311,14 @@ fn verify_hashes() -> anyhow::Result<()> {
     }
 
     ----- stderr -----
-    "#
+    "###
     );
 
     uv_snapshot!(context.filters(), add_shared_args(context.pip_install(), context.temp_dir.path())
         .arg("-r")
         .arg("requirements.in")
         .env(EnvVars::UV_NO_VERIFY_HASHES, "1")
-        .arg("--show-settings"), @r#"
+        .arg("--show-settings"), @r###"
     success: true
     exit_code: 0
     ----- stdout -----
@@ -6376,6 +6408,7 @@ fn verify_hashes() -> anyhow::Result<()> {
             prefix: None,
             index_strategy: FirstIndex,
             keyring_provider: Disabled,
+            torch_backend: None,
             no_build_isolation: false,
             no_build_isolation_package: [],
             build_options: BuildOptions {
@@ -6422,7 +6455,7 @@ fn verify_hashes() -> anyhow::Result<()> {
     }
 
     ----- stderr -----
-    "#
+    "###
     );
 
     uv_snapshot!(context.filters(), add_shared_args(context.pip_install(), context.temp_dir.path())
@@ -6430,7 +6463,7 @@ fn verify_hashes() -> anyhow::Result<()> {
         .arg("requirements.in")
         .arg("--verify-hashes")
         .arg("--no-require-hashes")
-        .arg("--show-settings"), @r#"
+        .arg("--show-settings"), @r###"
     success: true
     exit_code: 0
     ----- stdout -----
@@ -6520,6 +6553,7 @@ fn verify_hashes() -> anyhow::Result<()> {
             prefix: None,
             index_strategy: FirstIndex,
             keyring_provider: Disabled,
+            torch_backend: None,
             no_build_isolation: false,
             no_build_isolation_package: [],
             build_options: BuildOptions {
@@ -6568,7 +6602,7 @@ fn verify_hashes() -> anyhow::Result<()> {
     }
 
     ----- stderr -----
-    "#
+    "###
     );
 
     Ok(())
